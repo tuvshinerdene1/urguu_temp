@@ -1,38 +1,38 @@
 class Service_element extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: "open" });
-        this._pageName = '';
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this._pageName = '';
+  }
+  static get observedAttributes() {
+    return ['service-id'];
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "service-id" && oldValue !== newValue) {
+      this._serviceName = newValue;
+      this.render();
     }
-    static get observedAttributes() {
-        return ['service-id'];
+  }
+  async render() {
+    const serviceIdAtt = this.getAttribute('service-id') || this._serviceName;
+    if (!serviceIdAtt) {
+      this.shadowRoot.innerHTML = `<p>Page id attribute is missing.</p>`;
+      return;
     }
-    connectedCallback() {
-        this.render();
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "service-id" && oldValue !== newValue) {
-            this._serviceName = newValue;
-            this.render();
-        }
-    }
-    async render() {
-        const serviceIdAtt = this.getAttribute('service-id') || this._serviceName;
-        if (!serviceIdAtt) {
-            this.shadowRoot.innerHTML = `<p>Page id attribute is missing.</p>`;
-            return;
-        }
 
-        try {
-            const response = await fetch("../data/services/services.json");
-            if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
-            const services = await response.json();
-            const service = services.find(s => s.id === parseInt(serviceIdAtt, 10));
-            if (!service) {
-                this.shadowRoot.innerHTML = `<p>Service with ID ${serviceIdAtt} not found.</p>`;
-                return;
-            }
-            this.shadowRoot.innerHTML = `
+    try {
+      const response = await fetch("/src/data/services/services.json");
+      if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
+      const services = await response.json();
+      const service = services.find(s => s.id === parseInt(serviceIdAtt, 10));
+      if (!service) {
+        this.shadowRoot.innerHTML = `<p>Service with ID ${serviceIdAtt} not found.</p>`;
+        return;
+      }
+      this.shadowRoot.innerHTML = `
   <style>
     .service-container {
       position: relative;
@@ -129,12 +129,12 @@ class Service_element extends HTMLElement {
     </div>
   </div>
 `;
-        }
-        catch (error) {
-            console.error('Error fetching services:', error);
-            this.shadowRoot.innerHTML = `<p>Error loading service details.</p>`;
-        }
     }
+    catch (error) {
+      console.error('Error fetching services:', error);
+      this.shadowRoot.innerHTML = `<p>Error loading service details.</p>`;
+    }
+  }
 }
 
 customElements.define("service-element", Service_element);

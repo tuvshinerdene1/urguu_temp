@@ -1,4 +1,4 @@
-import { fetchBranches, fetchOccupiedSeats } from "./fetch.js";
+import { fetchBranches, fetchOccupiedSeats } from "/src/components/api/fetch.js";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -803,9 +803,8 @@ export class SeatSelector extends HTMLElement {
       : templateScreen;
     this.container.appendChild(currentScreenTemplate.content.cloneNode(true));
 
-    this.container.querySelector(".hall-name").textContent = `ТАНХИМ ${
-      this.hallId
-    } ${this.seatLayout.name.replace(/танхим/i, "")}`;
+    this.container.querySelector(".hall-name").textContent = `ТАНХИМ ${this.hallId
+      } ${this.seatLayout.name.replace(/танхим/i, "")}`;
 
     //seat layout raw data
     for (let i = 0; i < this.seatLayout.layout.rows; i++) {
@@ -997,7 +996,7 @@ export class SeatSelector extends HTMLElement {
     this.seatTypes.sort((a, b) => b.price - a.price);
   }
 
-  disconnectedCallback() {}
+  disconnectedCallback() { }
 }
 
 customElements.define("seat-selector", SeatSelector);

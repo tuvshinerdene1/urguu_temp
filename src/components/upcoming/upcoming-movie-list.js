@@ -1,20 +1,20 @@
-class UpcomingMovieList extends HTMLElement{
-    constructor(){
+class UpcomingMovieList extends HTMLElement {
+    constructor() {
         super();
-        this.attachShadow({mode: "open"});
+        this.attachShadow({ mode: "open" });
     }
-    connectedCallback(){
+    connectedCallback() {
         this.renderAllMovies();
     }
-    async renderAllMovies(){
-        try{
-            const response = await fetch("../data/upcoming/upcoming.json");
-            if(!response.ok){
+    async renderAllMovies() {
+        try {
+            const response = await fetch("/src/data/upcoming/upcoming.json");
+            if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const allMoviesData = await response.json();
             const movieCount = allMoviesData.length;
-            console.log("number of upcoming movies: ",movieCount);
+            console.log("number of upcoming movies: ", movieCount);
             var htmlString = `
                 <style>
                     div {
@@ -29,13 +29,13 @@ class UpcomingMovieList extends HTMLElement{
                 </style>
                 <div>
             `;
-            for(let i = 0 ; i < movieCount; i++){ // Start from 0 to include all movies
-                htmlString+=`<upcoming-movie movie-id = "${i+1}"></upcoming-movie>`;
+            for (let i = 0; i < movieCount; i++) { // Start from 0 to include all movies
+                htmlString += `<upcoming-movie movie-id = "${i + 1}"></upcoming-movie>`;
             }
-            htmlString+=`</div>`;
+            htmlString += `</div>`;
             this.shadowRoot.innerHTML = htmlString;
-        }catch(error){
-            console.error("Error in Upcoming-movie-list component",error);
+        } catch (error) {
+            console.error("Error in Upcoming-movie-list component", error);
         }
     }
 }

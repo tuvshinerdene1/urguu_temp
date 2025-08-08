@@ -1,4 +1,4 @@
-import { fetchBranches, fetchOccupiedSeats } from "./fetch.js";
+import { fetchBranches, fetchOccupiedSeats } from "/src/components/api/fetch.js";
 
 const template = document.createElement("template");
 template.innerHTML = `

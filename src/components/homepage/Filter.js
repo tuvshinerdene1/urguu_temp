@@ -18,11 +18,11 @@ class Filter extends HTMLElement {
   }
   async render() {
     try {
-      const response = await fetch("../data/ongoing/movies-list.json");
+      const response = await fetch("/src/data/ongoing/movies-list.json");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const branchResponse = await fetch("../data/branches/branch-list.json");
+      const branchResponse = await fetch("/src/data/branches/branch-list.json");
       if (!branchResponse.ok) {
         throw new Error(`HTTP error! status: ${branchResponse.status}`);
       }

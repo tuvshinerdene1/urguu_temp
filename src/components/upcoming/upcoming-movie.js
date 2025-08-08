@@ -33,7 +33,7 @@ class UpcomingMovie extends HTMLElement {
 
     this.shadowRoot.innerHTML = `<p>Loading movie details for ID: ${movieId}...</p>`;
     try {
-      const response = await fetch("../data/upcoming/upcoming.json");
+      const response = await fetch("/src/data/upcoming/upcoming.json");
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -228,8 +228,8 @@ class UpcomingMovie extends HTMLElement {
         this.shadowRoot.innerHTML = `<p>Movie with ID ${movieId} not found in the data.</p>`;
       }
       const remindButton = this.shadowRoot.getElementById('remindButton');
-      if(remindButton){
-        remindButton.addEventListener('click', ()=>{
+      if (remindButton) {
+        remindButton.addEventListener('click', () => {
           this._isReminderSet = !this._isReminderSet;
           const icon = remindButton.querySelector('img');
           const textSpan = remindButton.querySelector('#remindButtonText');
@@ -237,10 +237,10 @@ class UpcomingMovie extends HTMLElement {
           icon.src = this._isReminderSet ? '../pics/icons/bell-active.svg' : '../pics/icons/bell.svg';
           icon.alt = this._isReminderSet ? 'Reminder active icon' : 'Remind me icon';
           textSpan.textContent = this._isReminderSet ? 'Сануулга идэвхжсэн' : 'Надад сануул';
-        
-          if (this._isReminderSet){
+
+          if (this._isReminderSet) {
             remindButton.classList.add('glow-active');
-          }else{
+          } else {
             remindButton.classList.remove('glow-active');
           }
         });

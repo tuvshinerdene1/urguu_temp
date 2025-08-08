@@ -1,8 +1,8 @@
 export async function fetchMovies() {
     try {
-        const response = await fetch("./data/ongoing/movies-list.json");
+        const response = await fetch("/src/data/ongoing/movies-list.json");
         if (!response.ok) {
-        throw new Error("Сүлжээний хүсэлт амжилтгүй." + response.statusText);
+            throw new Error("Сүлжээний хүсэлт амжилтгүй." + response.statusText);
         }
         const data = await response.json();
         return data;
@@ -13,9 +13,9 @@ export async function fetchMovies() {
 
 export async function fetchBranches() {
     try {
-        const response = await fetch("./data/branches/branch-list.json");
+        const response = await fetch("/src/data/branches/branch-list.json");
         if (!response.ok) {
-        throw new Error("Сүлжээний хүсэлт амжилтгүй." + response.statusText);
+            throw new Error("Сүлжээний хүсэлт амжилтгүй." + response.statusText);
         }
         const data = await response.json();
         return data;
@@ -26,7 +26,7 @@ export async function fetchBranches() {
 
 export async function fetchOccupiedSeats() {
     try {
-        const response = await fetch("./data/realtime-data/seat-availability.json");
+        const response = await fetch("/src/data/realtime-data/seat-availability.json");
         if (!response.ok) {
             throw new Error("Сүлжээний хүсэлт амжилтгүй." + response.statusText);
         }

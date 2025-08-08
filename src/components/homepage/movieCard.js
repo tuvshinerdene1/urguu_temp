@@ -1,8 +1,8 @@
-import { durationConverter } from "../utils/duration-converter.js";
-import { convertToMinutes } from "../utils/getMinutes.js";
-import { isSameDay } from "../utils/isSameDay.js";
-import { day_to_number } from "../utils/day-to-number.js";
-import { Cardtemplate } from './templates/movieCard.js'
+import { durationConverter } from "/src/components/utils/duration-converter.js";
+import { convertToMinutes } from "/src/components/utils/getMinutes.js";
+import { isSameDay } from "/src/components/utils/isSameDay.js";
+import { day_to_number } from "/src/components/utils/day-to-number.js";
+import { Cardtemplate } from '/src/components/templates/movieCard.js'
 const template = document.createElement("template");
 template.innerHTML = Cardtemplate;
 

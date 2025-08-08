@@ -1,4 +1,4 @@
-import { fetchMovies, fetchBranches } from "./fetch.js";
+import { fetchMovies, fetchBranches } from "/src/components/api/fetch.js";
 
 const template = document.createElement("template");
 template.innerHTML = `

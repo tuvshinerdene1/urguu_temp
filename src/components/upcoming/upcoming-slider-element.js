@@ -1,66 +1,66 @@
 class UpcomingSliderElement extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: "open" });
-      this._isReminderSet = false;
-      this._movieId = null;
-    }
-    static get observedAttributes() {
-      return ["movie-id"];
-    }
-    connectedCallback() {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this._isReminderSet = false;
+    this._movieId = null;
+  }
+  static get observedAttributes() {
+    return ["movie-id"];
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "movie-id" && oldValue !== newValue) {
+      this._movieId = newValue;
       this.render();
     }
-    attributeChangedCallback(name, oldValue, newValue) {
-      if (name === "movie-id" && oldValue !== newValue) {
-        this._movieId = newValue;
-        this.render();
-      }
+  }
+  async render() {
+    const movieIdAttr = this.getAttribute("movie-id") || this._movieId;
+
+    if (!movieIdAttr) {
+      this.shadowRoot.innerHTML = `<p>Movie ID attribute is missing.</p>`;
+      return;
     }
-    async render() {
-      const movieIdAttr = this.getAttribute("movie-id") || this._movieId;
-  
-      if (!movieIdAttr) {
-        this.shadowRoot.innerHTML = `<p>Movie ID attribute is missing.</p>`;
-        return;
+
+    const movieId = parseInt(movieIdAttr, 10);
+    if (isNaN(movieId)) {
+      this.shadowRoot.innerHTML = `<p>Invalid Movie ID format: "${movieIdAttr}". ID must be an integer.</p>`;
+      return;
+    }
+
+    this.shadowRoot.innerHTML = `<p>Loading movie details for ID: ${movieId}...</p>`;
+    try {
+      const response = await fetch("/src/data/upcoming/upcoming.json");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
-      const movieId = parseInt(movieIdAttr, 10);
-      if (isNaN(movieId)) {
-        this.shadowRoot.innerHTML = `<p>Invalid Movie ID format: "${movieIdAttr}". ID must be an integer.</p>`;
-        return;
-      }
-  
-      this.shadowRoot.innerHTML = `<p>Loading movie details for ID: ${movieId}...</p>`;
-      try {
-        const response = await fetch("../data/upcoming/upcoming.json");
-  
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+
+      const allMoviesData = await response.json();
+      const movieData = allMoviesData.find((movie) => movie.id === movieId);
+
+      const getAgeRatingClass = (rating) => {
+        if (!rating) return ''; // Default if no rating
+        const upperRating = rating.toUpperCase();
+        switch (upperRating) {
+          case 'G':
+            return 'age-g';
+          case 'PG':
+            return 'age-pg';
+          case 'PG-13':
+            return 'age-pg13';
+          case 'R':
+            return 'age-r';
+          default:
+            return 'age-rating-badge'; // A generic fallback class you can style if needed
         }
-  
-        const allMoviesData = await response.json();
-        const movieData = allMoviesData.find((movie) => movie.id === movieId);
-  
-        const getAgeRatingClass = (rating) => {
-            if (!rating) return ''; // Default if no rating
-            const upperRating = rating.toUpperCase();
-            switch (upperRating) {
-              case 'G':
-                return 'age-g';
-              case 'PG':
-                return 'age-pg';
-              case 'PG-13':
-                return 'age-pg13';
-              case 'R':
-                return 'age-r';
-              default:
-                return 'age-rating-badge'; // A generic fallback class you can style if needed
-            }
-          };
-        
-        if (movieData) {
-          this.shadowRoot.innerHTML = `
+      };
+
+      if (movieData) {
+        this.shadowRoot.innerHTML = `
             <style>
             @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
               :host {
@@ -206,34 +206,34 @@ class UpcomingSliderElement extends HTMLElement {
                 <img src="${movieData.widePosterSource}" alt="${movieData.altText}" loading="lazy" />
             </article>
           `;
-        } else {
-          this.shadowRoot.innerHTML = `<p>Movie with ID ${movieId} not found in the data.</p>`;
-        }
-        const remindButton = this.shadowRoot.getElementById('remindButton');
-        if(remindButton){
-          remindButton.addEventListener('click', ()=>{
-            this._isReminderSet = !this._isReminderSet;
-            const icon = remindButton.querySelector('img');
-            const textSpan = remindButton.querySelector('#remindButtonText');
-  
-            icon.src = this._isReminderSet ? '../pics/icons/bell-active-orange.svg' : '../pics/icons/bell-orange.svg';
-            icon.alt = this._isReminderSet ? 'Reminder active icon' : 'Remind me icon';
-            textSpan.textContent = this._isReminderSet ? 'Сануулга идэвхжсэн' : 'Надад сануул';
-          
-            if (this._isReminderSet){
-              remindButton.classList.add('glow-active');
-            }else{
-              remindButton.classList.remove('glow-active');
-            }
-          });
-        }
-      } catch (error) {
-        console.error(
-          "Error in render method of UpcomingMovie component:",
-          error
-        );
-        this.shadowRoot.innerHTML = `<p>Error loading movie data. ${error.message}</p>`;
+      } else {
+        this.shadowRoot.innerHTML = `<p>Movie with ID ${movieId} not found in the data.</p>`;
       }
+      const remindButton = this.shadowRoot.getElementById('remindButton');
+      if (remindButton) {
+        remindButton.addEventListener('click', () => {
+          this._isReminderSet = !this._isReminderSet;
+          const icon = remindButton.querySelector('img');
+          const textSpan = remindButton.querySelector('#remindButtonText');
+
+          icon.src = this._isReminderSet ? '../pics/icons/bell-active-orange.svg' : '../pics/icons/bell-orange.svg';
+          icon.alt = this._isReminderSet ? 'Reminder active icon' : 'Remind me icon';
+          textSpan.textContent = this._isReminderSet ? 'Сануулга идэвхжсэн' : 'Надад сануул';
+
+          if (this._isReminderSet) {
+            remindButton.classList.add('glow-active');
+          } else {
+            remindButton.classList.remove('glow-active');
+          }
+        });
+      }
+    } catch (error) {
+      console.error(
+        "Error in render method of UpcomingMovie component:",
+        error
+      );
+      this.shadowRoot.innerHTML = `<p>Error loading movie data. ${error.message}</p>`;
     }
   }
-  customElements.define("upcoming-slider-element", UpcomingSliderElement);
+}
+customElements.define("upcoming-slider-element", UpcomingSliderElement);

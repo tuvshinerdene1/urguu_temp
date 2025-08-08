@@ -1,68 +1,68 @@
-import { durationConverter } from "../../utils/duration-converter.js";
+import { durationConverter } from "/src/components/utils/duration-converter.js";
 class SliderElement extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: "open" });
-      this._isReminderSet = false;
-      this._movieId = null;
-    }
-    static get observedAttributes() {
-      return ["movie-id"];
-    }
-    connectedCallback() {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this._isReminderSet = false;
+    this._movieId = null;
+  }
+  static get observedAttributes() {
+    return ["movie-id"];
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "movie-id" && oldValue !== newValue) {
+      this._movieId = newValue;
       this.render();
     }
-    attributeChangedCallback(name, oldValue, newValue) {
-      if (name === "movie-id" && oldValue !== newValue) {
-        this._movieId = newValue;
-        this.render();
-      }
+  }
+  async render() {
+    const movieIdAttr = this.getAttribute("movie-id") || this._movieId;
+
+    if (!movieIdAttr) {
+      this.shadowRoot.innerHTML = `<p>Movie ID attribute is missing.</p>`;
+      return;
     }
-    async render() {
-      const movieIdAttr = this.getAttribute("movie-id") || this._movieId;
-  
-      if (!movieIdAttr) {
-        this.shadowRoot.innerHTML = `<p>Movie ID attribute is missing.</p>`;
-        return;
+
+    const movieId = parseInt(movieIdAttr, 10);
+    if (isNaN(movieId)) {
+      this.shadowRoot.innerHTML = `<p>Invalid Movie ID format: "${movieIdAttr}". ID must be an integer.</p>`;
+      return;
+    }
+
+    this.shadowRoot.innerHTML = `<p>Loading movie details for ID: ${movieId}...</p>`;
+    try {
+      const response = await fetch("/src/data/ongoing/movies-list.json");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
-      const movieId = parseInt(movieIdAttr, 10);
-      if (isNaN(movieId)) {
-        this.shadowRoot.innerHTML = `<p>Invalid Movie ID format: "${movieIdAttr}". ID must be an integer.</p>`;
-        return;
-      }
-  
-      this.shadowRoot.innerHTML = `<p>Loading movie details for ID: ${movieId}...</p>`;
-      try {
-        const response = await fetch("../data/ongoing/movies-list.json");
-  
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+
+      const jsonData = await response.json();
+      const allMoviesData = jsonData.movies;
+      const movieData = allMoviesData.find((movie) => movie.id === movieId);
+
+      const getAgeRatingClass = (rating) => {
+        if (!rating) return '';
+        const upperRating = rating.toUpperCase();
+        switch (upperRating) {
+          case 'G':
+            return 'age-g';
+          case 'PG':
+            return 'age-pg';
+          case 'PG-13':
+            return 'age-pg13';
+          case 'R':
+            return 'age-r';
+          default:
+            return 'age-rating-badge'; // A generic fallback class you can style if needed
         }
-  
-        const jsonData = await response.json();
-        const allMoviesData = jsonData.movies;
-        const movieData = allMoviesData.find((movie) => movie.id === movieId);
-  
-        const getAgeRatingClass = (rating) => {
-            if (!rating) return '';
-            const upperRating = rating.toUpperCase();
-            switch (upperRating) {
-              case 'G':
-                return 'age-g';
-              case 'PG':
-                return 'age-pg';
-              case 'PG-13':
-                return 'age-pg13';
-              case 'R':
-                return 'age-r';
-              default:
-                return 'age-rating-badge'; // A generic fallback class you can style if needed
-            }
-          };
-        
-        if (movieData) {
-          this.shadowRoot.innerHTML = `
+      };
+
+      if (movieData) {
+        this.shadowRoot.innerHTML = `
             <style>
             @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
               :host {
@@ -206,16 +206,16 @@ class SliderElement extends HTMLElement {
                 <img src="${movieData.widePosterSource}" alt="${movieData.title}" loading="lazy" />
             </article>
           `;
-        } else {
-          this.shadowRoot.innerHTML = `<p>Movie with ID ${movieId} not found in the data.</p>`;
-        }
-      } catch (error) {
-        console.error(
-          "Error in render method of UpcomingMovie component:",
-          error
-        );
-        this.shadowRoot.innerHTML = `<p>Error loading movie data. ${error.message}</p>`;
+      } else {
+        this.shadowRoot.innerHTML = `<p>Movie with ID ${movieId} not found in the data.</p>`;
       }
+    } catch (error) {
+      console.error(
+        "Error in render method of UpcomingMovie component:",
+        error
+      );
+      this.shadowRoot.innerHTML = `<p>Error loading movie data. ${error.message}</p>`;
     }
   }
-  customElements.define("slider-element", SliderElement);
+}
+customElements.define("slider-element", SliderElement);

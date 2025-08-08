@@ -1,28 +1,28 @@
 class Header extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this._pageName = '';
-  }
-  static get observedAttributes() {
-    return ['page-name'];
-  }
-  connectedCallback() {
-    this.render();
-  }
-  attributeChangedCallback(name, oldValue, newValue) {
-    if(name === "page-name" && oldValue !== newValue){
-        this._pageName = newValue;
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        this._pageName = '';
+    }
+    static get observedAttributes() {
+        return ['page-name'];
+    }
+    connectedCallback() {
         this.render();
     }
-  }
-  async render() {
-    const pageNameAtt = this.getAttribute('page-name') || this._pageName;
-    if(!pageNameAtt){
-        this.shadowRoot.innerHTML = `<p>Page name attribute is missing.</p>`;
-        return;
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === "page-name" && oldValue !== newValue) {
+            this._pageName = newValue;
+            this.render();
+        }
     }
-    this.shadowRoot.innerHTML = `
+    async render() {
+        const pageNameAtt = this.getAttribute('page-name') || this._pageName;
+        if (!pageNameAtt) {
+            this.shadowRoot.innerHTML = `<p>Page name attribute is missing.</p>`;
+            return;
+        }
+        this.shadowRoot.innerHTML = `
       <style>
     .desktop-nav {
         height: 5em;
@@ -95,7 +95,7 @@ class Header extends HTMLElement {
     <nav class="phone-nav">
         <ul>
             <li>
-                <a href="#"><img src="pics/logo-urgoo.webp" alt="Urgoo logo" class="logo" width="50" height="55" /></a>
+                <a href="#"><img src="src/assets/pics/logo-urgoo.webp" alt="Urgoo logo" class="logo" width="50" height="55" /></a>
             </li>
             <li><a class="phone-collapse" href="#">☰</a></li>
         </ul>
@@ -103,19 +103,19 @@ class Header extends HTMLElement {
     <nav class="desktop-nav">
         <ul>
             <li>
-                <a href="#"><img src="../pics/logo-urgoo.webp" alt="Urgoo logo" class="logo" width="50"
+                <a href="#"><img src="src/assets/pics/logo-urgoo.webp" alt="Urgoo logo" class="logo" width="50"
                         height="55" /></a>
             </li>
-            <li><a href="../index.html" class="${pageNameAtt === 'index' ? 'active' : ''}">НҮҮР</a></li>
-            <li><a href="../upcoming/upcoming.html" class="${pageNameAtt === 'upcoming' ? 'active' : ''}">УДАХГҮЙ
+            <li><a href="index.html" class="${pageNameAtt === 'index' ? 'active' : ''}">НҮҮР</a></li>
+            <li><a href="/src/pages/upcoming/upcoming.html" class="${pageNameAtt === 'upcoming' ? 'active' : ''}">УДАХГҮЙ
                     ДЭЛГЭЦНЭЭ</a></li>
-            <li><a href="../services/services.html"
+            <li><a href="/src/pages/services/services.html"
                     class="${pageNameAtt === 'services' ? 'active' : ''}">ҮЙЛЧИЛГЭЭНҮҮД</a></li>
-            <li><a href="../login/profile.html" class="${pageNameAtt === 'profile' ? 'active' : ''}">ПРОФАЙЛ</a></li>
+            <li><a href="/src/pages/profile/profile.html" class="${pageNameAtt === 'profile' ? 'active' : ''}">ПРОФАЙЛ</a></li>
         </ul>
     </nav>
 </header>
     `;
-  }
+    }
 }
 customElements.define("custom-header", Header);
