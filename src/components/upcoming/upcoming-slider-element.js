@@ -199,7 +199,7 @@ class UpcomingSliderElement extends HTMLElement {
                 </div>
                 <button id="remindButton" 
                 class="button-featured ${this._isReminderSet ? 'glow-active' : ''}">
-                                <img src="${this._isReminderSet ? '../pics/icons/bell-active-orange.svg' : '../pics/icons/bell-orange.svg'}" alt="Remind me icon">
+                                <img src="${this._isReminderSet ? '/src/assets/pics/icons/bell-active-orange.svg' : '/src/assets/pics/icons/bell-orange.svg'}" alt="Remind me icon">
                                 <span id="remindButtonText">${this._isReminderSet ? 'Сануулга идэвхжсэн' : 'Надад сануул'}</span>
                 </button>
                 </div>
@@ -216,7 +216,7 @@ class UpcomingSliderElement extends HTMLElement {
           const icon = remindButton.querySelector('img');
           const textSpan = remindButton.querySelector('#remindButtonText');
 
-          icon.src = this._isReminderSet ? '../pics/icons/bell-active-orange.svg' : '../pics/icons/bell-orange.svg';
+          icon.src = this._isReminderSet ? '/src/assets/pics/icons/bell-active-orange.svg' : '/src/assets/pics/icons/bell-orange.svg';
           icon.alt = this._isReminderSet ? 'Reminder active icon' : 'Remind me icon';
           textSpan.textContent = this._isReminderSet ? 'Сануулга идэвхжсэн' : 'Надад сануул';
 

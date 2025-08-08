@@ -10,8 +10,8 @@
         "Эндрю Бурнап"
       ],
       "duration": 109,
-      "poster_url": "./pics/snowwhite-portrait.webp",
-      "widePosterSource": "./pics/minecraft.webp",
+      "poster_url": "/src/assets/pics/snowwhite-portrait.webp",
+      "widePosterSource": "/src/assets/pics/minecraft.webp",
       "age_rating": "PG",
       "cc": "mongolian",
       "genres": [
@@ -224,8 +224,8 @@
         "Питер МакНиколь"
       ],
       "duration": 120,
-      "poster_url": "./pics/thedaytheearthblewup-portrait.webp",
-      "widePosterSource": "./pics/minecraft.webp",
+      "poster_url": "/src/assets/pics/thedaytheearthblewup-portrait.webp",
+      "widePosterSource": "/src/assets/pics/minecraft.webp",
       "age_rating": "G",
       "cc": "mongolian",
       "genres": [
@@ -438,8 +438,8 @@
         "Крипер"
       ],
       "duration": 115,
-      "poster_url": "./pics/minecraft-portrait.webp",
-      "widePosterSource": "./pics/minecraft.webp",
+      "poster_url": "/src/assets/pics/minecraft-portrait.webp",
+      "widePosterSource": "/src/assets/pics/minecraft.webp",
       "age_rating": "PG-13",
       "cc": "mongolian",
       "genres": [
@@ -652,8 +652,8 @@
         "Тэмүүлэн"
       ],
       "duration": 98,
-      "poster_url": "./pics/monkey-portrait.webp",
-      "widePosterSource": "./pics/minecraft.webp",
+      "poster_url": "/src/assets/pics/monkey-portrait.webp",
+      "widePosterSource": "/src/assets/pics/minecraft.webp",
       "age_rating": "R",
       "cc": "mongolian",
       "genres": [
@@ -865,8 +865,8 @@
         "Тони Коллетт"
       ],
       "duration": 130,
-      "poster_url": "./pics/mickey17-portrait.webp",
-      "widePosterSource": "./pics/minecraft.webp",
+      "poster_url": "/src/assets/pics/mickey17-portrait.webp",
+      "widePosterSource": "/src/assets/pics/minecraft.webp",
       "age_rating": "PG-13",
       "cc": "mongolian",
       "genres": [
@@ -1079,8 +1079,8 @@
         "Солонго"
       ],
       "duration": 105,
-      "poster_url": "./pics/novocaine-portrait.webp",
-      "widePosterSource": "./pics/minecraft.webp",
+      "poster_url": "/src/assets/pics/novocaine-portrait.webp",
+      "widePosterSource": "/src/assets/pics/minecraft.webp",
       "age_rating": "R",
       "cc": "mongolian",
       "genres": [
@@ -1292,8 +1292,8 @@
         "Саруул"
       ],
       "duration": 110,
-      "poster_url": "./pics/indahouse-portrait.webp",
-      "widePosterSource": "./pics/minecraft.webp",
+      "poster_url": "/src/assets/pics/indahouse-portrait.webp",
+      "widePosterSource": "/src/assets/pics/minecraft.webp",
       "age_rating": "PG-13",
       "cc": "mongolian",
       "genres": [

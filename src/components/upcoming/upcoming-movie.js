@@ -218,7 +218,7 @@ class UpcomingMovie extends HTMLElement {
                                 </div>
                             </div>
                             <button id = "remindButton" class="${this._isReminderSet ? 'glow-active' : ''}">
-                                <img src="${this._isReminderSet ? '../pics/icons/bell-active.svg' : '../pics/icons/bell.svg'}" alt="Remind me icon">
+                                <img src="${this._isReminderSet ? '/src/assets/pics/icons/bell-active.svg' : '/src/assets/pics/icons/bell.svg'}" alt="Remind me icon">
                                 <span id="remindButtonText">${this._isReminderSet ? 'Сануулга идэвхжсэн' : 'Надад сануул'}</span>
                             </button>
                         </div>
@@ -234,7 +234,7 @@ class UpcomingMovie extends HTMLElement {
           const icon = remindButton.querySelector('img');
           const textSpan = remindButton.querySelector('#remindButtonText');
 
-          icon.src = this._isReminderSet ? '../pics/icons/bell-active.svg' : '../pics/icons/bell.svg';
+          icon.src = this._isReminderSet ? '/src/assets/pics/icons/bell-active.svg' : '/src/assets/pics/icons/bell.svg';
           icon.alt = this._isReminderSet ? 'Reminder active icon' : 'Remind me icon';
           textSpan.textContent = this._isReminderSet ? 'Сануулга идэвхжсэн' : 'Надад сануул';
 

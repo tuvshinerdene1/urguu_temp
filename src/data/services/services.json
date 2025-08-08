@@ -4,9 +4,9 @@
     "name": "Urgoo Arcade",
     "description": "Өргөө game land нь бүх насныхан тоглож болох 30 гаруй автомат тоглоомуудыг байрлуулсан. Mini BOWLING болон бусад олон төрлийн тоглоомтой.",
     "images": [
-      "../pics/services/arcade1.jpg",
-      "../pics/services/arcade2.jpg",
-      "../pics/services/arcade3.jpg"
+      "/src/assets/pics/services/arcade1.jpg",
+      "/src/assets/pics/services/arcade2.jpg",
+      "/src/assets/pics/services/arcade3.jpg"
     ]
   },
   {
@@ -14,9 +14,9 @@
     "name": "Lounge",
     "description": "Салбар бүрийн 2 давхарт байрлах Lounge нь тав тухтай орчин, өвөрмөц movie cocktail-оор үйлчилдэг.",
     "images": [
-      "../pics/services/lounge1.jpg",
-      "../pics/services/lounge2.jpg",
-      "../pics/services/lounge3.jpg"
+      "/src/assets/pics/services/lounge1.jpg",
+      "/src/assets/pics/services/lounge2.jpg",
+      "/src/assets/pics/services/lounge3.jpg"
     ]
   },
   {
@@ -24,9 +24,9 @@
     "name": "VIP",
     "description": "VIP танхимд тав тухтай орчин, тусгай үйлчилгээ, кино үзэх шилдэг боломжийг санал болгодог.",
     "images": [
-      "../pics/services/movie1.jpg",
-      "../pics/services/movie2.jpg",
-      "../pics/services/movie3.jpg"
+      "/src/assets/pics/services/movie1.jpg",
+      "/src/assets/pics/services/movie2.jpg",
+      "/src/assets/pics/services/movie3.jpg"
     ]
   },
   {
@@ -34,9 +34,9 @@
     "name": "Зөөлөн тоглоом",
     "description": "0-5 насны хүүхдүүдэд зориулсан зөөлөн тоглоомын төв. Гулсуур, бөмбөлөгтэй байшин, элсний хэсэг, хүүхдийн тоглоом, аюулгүй орчинтой.",
     "images": [
-      "../pics/services/soft1.jpg",
-      "../pics/services/soft2.jpg",
-      "../pics/services/soft3.jpg"
+      "/src/assets/pics/services/soft1.jpg",
+      "/src/assets/pics/services/soft2.jpg",
+      "/src/assets/pics/services/soft3.jpg"
     ]
   }
 ]
